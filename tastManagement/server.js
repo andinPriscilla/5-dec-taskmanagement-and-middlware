@@ -15,6 +15,8 @@ const port = process.env.PORT
 
 server.listen(port, () => console.log(`server running on ${port}`))
 
+
+
 const loggingMiddleware = require("./middleWare/loggingMiddleware")
 
 server.use(loggingMiddleware)

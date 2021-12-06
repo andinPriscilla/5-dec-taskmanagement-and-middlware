@@ -12,7 +12,7 @@ router.get('/',function(req, res) {
 })
 
 router.get("/:categorieId",function(req, res) {
-    const categorie = categories.find(category => category.id === +req.params.categorieId)
+    const categorie = categories.find(category => category.id === +req.params.categorieId) 
     res.send(categorie)
 })
 
