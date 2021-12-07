@@ -7,23 +7,43 @@ var users = [
     {id: 3, firstName: "Angelina",lastName:"Julie", age:41}
 ]
 
-router.get('/',function(req, res) {
-    res.send(users)
+router.get('/',function(req, res,next) {
+    try {
+       res.send(users) 
+    } catch (error) {
+        next(error)
+    }
+    
 })
 
-router.get("/:usersId",function(req, res) {
-    const user = users.find(use => use.id === +req.params.usersId) 
+router.get("/:usersId",function(req, res,next) {
+    try {
+         const user = users.find(use => use.id === +req.params.usersId) 
     res.send(user)
+    } catch (error) {
+       next(error) 
+    }
+   
 })
 
-router.post("/", function (req, res) {
-    res.send("Successfully logged in cool ")
+router.post("/", function (req, res,next) {
+    try {
+         res.send("Successfully logged in cool ")
+    } catch (error) {
+        next(error)
+    }
+   
     })
 
-router.delete("/:usersid", function (req, res) {
-    const user = users.find(use => use.id === +req.params.usersid);
+router.delete("/:usersid", function (req, res,next) {
+    try {
+       const user = users.find(use => use.id === +req.params.usersid);
     res.status(204);
-    res.end()
+    res.end() 
+    } catch (error) {
+        next(error)
+    }
+    
     }); 
 
 

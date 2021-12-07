@@ -9,24 +9,44 @@ const teams = [
     {id:1, colour:"black"}
 ]
 
-router.get("/", function (req, res) {
-    res.send(teams)
+router.get("/", function (req, res,next) {
+    try {
+         res.send(teams)
+    } catch (error) {
+        next(error)
+    }
+   
 })
 
-router.get("/:teamsId", function (req, res) {
-    const team = tasks.find((colour) => colour.id === +req.params.teamsId)
+router.get("/:teamsId", function (req, res,next) {
+    try {
+        const team = tasks.find((colour) => colour.id === +req.params.teamsId)
     res.send(team)
+    } catch (error) {
+        next(error)
+    }
+    
 })
 
-router.post("/", function (req, res){
-    res.send("these are great teams")
+router.post("/", function (req, res,next){
+    try {
+         res.send("these are great teams")
+    } catch (error) {
+        next(error)
+    }
+   
 })
 
 
-router.delete("/:teamsid", function (req, res) {
-    const team = tasks.find((t) => t.id === +req.params.teamsid);
+router.delete("/:teamsid", function (req, res,next) {
+    try {
+      const team = tasks.find((t) => t.id === +req.params.teamsid);
     res.status(204);
-    res.end()
+    res.end()  
+    } catch (error) {
+        next(error)
+    }
+    
     }); 
 
 

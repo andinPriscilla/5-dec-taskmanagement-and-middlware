@@ -4,6 +4,8 @@ const tasks = require('./routes/tasks')
 const teams = require('./routes/teams')
 const users = require('./routes/users')
 
+const errorHandler = require('./middleWare/errorHandler')
+
 
 
 require ("dotenv").config();
@@ -26,3 +28,9 @@ server.use("/categories",categories)
 server.use("/tasks", tasks)
 server.use("/users", users)
 server.use("/teams", teams)
+
+/* server.use(require("../middleWare/errorHandler")) //one line importing and using at the same time */
+
+server.use((req, res, next) => res.status(404).end("please check what you send"))
+
+server.use(errorHandler)
