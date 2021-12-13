@@ -1,5 +1,6 @@
 var express = require('express')
 var router = express.Router() 
+var sanitizeHtml = require('sanitize-html')
 
 const tasks = [
     {id:1, taskname: "washing"},
@@ -7,7 +8,7 @@ const tasks = [
     {id:3, taskname: "cooking"}, 
 ]
 
-router.get("/",function (req, res,next) {
+router.get("/",(req, res,next) =>{
     try {
         res.send(tasks)  
     } catch (error) {
@@ -16,7 +17,7 @@ router.get("/",function (req, res,next) {
   
 })
 
-router.get("/:tasksId", function (req, res, next) {
+router.get("/:tasksId",(req, res, next) => {
     try {
          // + converts a string to number (in this case is the id)
     const task = tasks.find((item) => item.id === +req.params.tasksId)
@@ -27,17 +28,25 @@ router.get("/:tasksId", function (req, res, next) {
    
 })
 
-router.post("/", function (req, res,next){
+router.post("/", (req, res,next) => {
     try {
-         res.send("waw waw waw")
+        if(!req.body.description) return res.status(400).json("missing description !!!!")
+        if(!req.body.dueDate) return res.status(400).json("Date missing !!")
+        if(!req.body.id) return res.status(400).json("No id !!!!")
+        const sanitize = sanitizeHtml(
+            req.body.description,{allowedTags:[]}
+        )
+        res.json("no html allowed here")
+      res.status(201).send(req.body) 
+        
     } catch (error) {
         next(error)
     }
-   
+    
 })
 
 
-router.delete("/:tasksid", function (req, res,next) {
+router.delete("/:tasksid",(req, res,next) => {
     try {
         const task = tasks.find((t) => t.id === +req.params.tasksid);
     res.status(204);
