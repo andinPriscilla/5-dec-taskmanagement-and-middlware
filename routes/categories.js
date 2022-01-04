@@ -7,8 +7,9 @@ var categories = [
     {id: 3, name: "Gabo"}
 ]
 
-router.get('/',function(req, res,next) {
+router.get('/',(req, res,next) => {
     try {
+        /* console.log("get category") */
         res.send(categories) 
     } catch (error) {
         next(error)
@@ -26,7 +27,7 @@ router.get("/:categorieId",function(req, res, next) {
     
 })
 
-router.post("/", function (req, res, next) {
+router.post("/", (req, res, next) => {
     try {
         res.send("Success!!!!!")
     } catch (error) {

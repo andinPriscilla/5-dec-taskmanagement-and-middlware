@@ -1,16 +1,22 @@
+const db = require('../library/database')
 var express = require('express')
 var router = express.Router() 
 
-var users = [
+/* var users = [
     {id: 1, firstName: 'John', lastName: "carter", age:34},
     {id: 2, firstName: 'James', lastName:"Brown", age:50},
     {id: 3, firstName: "Angelina",lastName:"Julie", age:41}
-]
+] */
 
-router.get('/',function(req, res,next) {
+
+router.get('/',async(req, res,next) => {
     try {
-       res.send(users) 
-    } catch (error) {
+/*        res.send(users) */   
+const users = await db.collection('users').find().toArray();
+res.json(users);
+
+
+} catch (error) {
         next(error)
     }
     
