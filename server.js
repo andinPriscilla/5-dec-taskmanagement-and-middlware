@@ -1,6 +1,8 @@
 require("dotenv").config();
 const db = require('./library/database')
 
+const Product = require("./models/Product")
+
 const categories = require('./routes/categories')
 const tasks = require('./routes/tasks')
 const teams = require('./routes/teams')
@@ -30,6 +32,16 @@ server.use("/tasks", tasks)
 server.use("/users", users)
 server.use("/teams", teams)
 
+
+server.post("/product",async (req, res,next) =>{
+    try {
+        const new_product = await Product.create_product("product_name",654)
+        res.json(new_product)
+    } catch (error) {
+        next(error)
+        
+    }
+})
 /* server.use(require("../middleWare/errorHandler")) //one line importing and using at the same time */
 
 server.use((req, res, next) => res.status(404).end("please check what you send"))

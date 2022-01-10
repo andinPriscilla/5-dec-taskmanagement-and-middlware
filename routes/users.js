@@ -22,19 +22,22 @@ res.json(users);
     
 })
 
-router.get("/:usersId",function(req, res,next) {
+router.get("/:usersId",function(req, res,next){
     try {
-         const user = users.find(use => use.id === +req.params.usersId) 
-    res.send(user)
+        /* const user = users.find(use => use.id === +req.params.usersId)  */
+        res.send(user)
     } catch (error) {
-       next(error) 
+        next(error) 
     }
-   
+    
 })
 
-router.post("/", function (req, res,next) {
+router.post("/", async (req, res,next)=> {
     try {
-         res.send("Successfully logged in cool ")
+        const users = await db.collection('users').insertOne(req.body);
+      
+        res.status(201).end("added new user");
+         /* res.send("Successfully logged in cool ") */
     } catch (error) {
         next(error)
     }

@@ -1,12 +1,12 @@
 var express = require('express')
 var router = express.Router() 
 
-var categories = [
+
+ var categories = [
     {id: 1, name: "pris"},
     {id: 2, name: "Mohannad"},
     {id: 3, name: "Gabo"}
-]
-
+] 
 router.get('/',(req, res,next) => {
     try {
         /* console.log("get category") */
