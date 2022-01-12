@@ -21,6 +21,19 @@ async function create_product(product_name, product_price) {
     return await new_product.save()
 }
 
+async function read_product(product_name, product_price){
+    const product = await products
+    .find()
+    .select(["_id","product_name","product_price"])
+
+    return product;
+}  
+
+async function updateProduct(productId,{product_name, product_price}){
+    return await product.findByIdAndUpdate(productId,{product_name, product_price})
+}
+
 module.exports = {
-    create_product
+    create_product,
+    read_product
 }

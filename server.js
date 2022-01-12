@@ -42,6 +42,16 @@ server.post("/product",async (req, res,next) =>{
         
     }
 })
+
+server.get("/product",async (req, res,next) =>{
+    try {
+        const new_product = await Product.read("product_name",654)
+        res.json(new_product)
+    } catch (error) {
+        next(error)
+        
+    }
+})
 /* server.use(require("../middleWare/errorHandler")) //one line importing and using at the same time */
 
 server.use((req, res, next) => res.status(404).end("please check what you send"))
